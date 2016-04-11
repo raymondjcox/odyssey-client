@@ -1,9 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  context: path.join(__dirname, 'app'),
-  entry: './index.js',
+  entry: './app/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'app.js'
@@ -11,8 +11,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        test: /\.css$/,
+        loader: 'style!css'
       },
       {
         test: /\.json$/,
@@ -25,6 +25,13 @@ module.exports = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
       }
     ],
     postLoaders: [
@@ -39,17 +46,20 @@ module.exports = {
     extensions: ['', '.js']
   },
   devServer: {
+    contentBase: 'dist/',
     proxy: {
-      '/assets/maps/': {
-        target: 'http://localhost:3000',
-        secure: false
+      '/assets*': {
+        target: 'http://localhost:3000'
       }
-    },
+    }
   },
   plugins: [
     new webpack.ProvidePlugin({
         'Promise': 'exports?global.Promise!es6-promise',
         'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
+   new HtmlWebpackPlugin({
+      title: 'Odyssey Online Classic'
+    })
   ]
 };

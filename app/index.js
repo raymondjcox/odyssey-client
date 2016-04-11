@@ -1,4 +1,5 @@
-import Style from 'styles/main.scss';
+import Style from 'styles/main.css';
+import interfacePath from 'assets/interface.png';
 import PIXI from 'pixi.js';
 import pixiTiled from 'pixi-tiled';
 
@@ -22,11 +23,25 @@ let stage = new PIXI.Container();
 document.body.appendChild(renderer.view);
 
 let map;
+let inter;
+
 PIXI.loader.add('assets/maps/test-map.json', (res) => {
   map = res.tiledMap;
+  Object.keys(map.layers).forEach((layerName) => {
+    let layer = map.layers[layerName];
+    layer.y += 3;
+    layer.x += 3;
+  });
 });
+
+PIXI.loader.add(interfacePath, (res) => {
+  inter = new PIXI.Sprite(res.texture);
+});
+
 PIXI.loader.load();
+
 PIXI.loader.once('complete', ((/*resources*/) => {
+  stage.addChild(inter);
   stage.addChild(map.layers.ground);
   stage.addChild(map.layers.background);
   stage.addChild(map.layers.foreground);
