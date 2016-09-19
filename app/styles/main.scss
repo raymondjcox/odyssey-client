@@ -1,0 +1,42 @@
+body {
+  background-color: black;
+}
+
+.container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+
+  .viewport {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    z-index: 1;
+  }
+
+  .interface {
+    position: absolute;
+  }
+
+  .send-input {
+    position:absolute;
+    left: 3px;
+    bottom: 3px;
+    z-index: 1;
+    width: 785px;
+    background-color: black;
+    border: none;
+    border-top: 3px solid #353944;
+    color: #8190AD;
+    padding: 4px;
+    &::selection {
+      color: lightgray;
+      background-color: black;
+    }
+    &:focus {
+      background-color: #222632;
+      outline: none;
+    }
+  }
+}
+

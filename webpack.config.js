@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './app/index.js',
@@ -11,8 +10,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.css$/,
-        loader: 'style!css'
+        test: /\.scss/,
+        loaders: ['style', 'css', 'sass']
       },
       {
         test: /\.json$/,
@@ -57,9 +56,6 @@ module.exports = {
     new webpack.ProvidePlugin({
         'Promise': 'exports?global.Promise!es6-promise',
         'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    }),
-   new HtmlWebpackPlugin({
-      title: 'Odyssey Online Classic'
     })
   ]
 };
