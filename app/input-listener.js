@@ -9,7 +9,6 @@ export default class InputListener {
     const ENTER = 13, BACKSPACE = 8;
 
     document.body.onkeydown = ((evt) => {
-      console.log(evt.keyCode);
       let sendInput = this.sendInput;
 
       if ([UP, DOWN, LEFT, RIGHT, ENTER].indexOf(evt.keyCode) >= 0) {
@@ -30,11 +29,11 @@ export default class InputListener {
           console.log('arrow-right');
           break;
         case ENTER:
-          sendInput.val('');
+          sendInput.value = "";
           console.log('enter');
           break;
         case BACKSPACE:
-          if (sendInput.val() === '') {
+          if (sendInput.value === '') {
             sendInput.blur();
           }
           console.log('backspace');
